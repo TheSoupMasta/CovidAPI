@@ -2,10 +2,15 @@ import requests
 import tkinter as tk
 import webbrowser as wb
 
+
+#Gets Info from API website
 response = requests.get("http://api.covid19api.com/summary")
+r = response.json()
 
 
+#Parent app class, used to intialize some variables.
 class App:
+    #__init__ method, initalizing variables. Try not to change variables or risk bricking the script.
     def __init__(self, root):
         self.root = root
         self.url = "https://en.wikipedia.org/wiki/COVID-19"
@@ -13,9 +18,9 @@ class App:
         self.url2 = "https://api.covid19api.com/summary"
         self.new2 = 2
 
-r = response.json()
-
+#Child class to display and process info in tkinter window.
 class API_Harvest(App):
+    # __init__ method, initalizing variables. Try not to change variables or risk bricking the script.
     def __init__(self, root):
         super(API_Harvest, self).__init__(root)
         self.country_entry = tk.Entry(window, width=10)
@@ -40,12 +45,14 @@ class API_Harvest(App):
         self.legend.grid(row=8)
         self.get_countries()
 
+    #Methods for opening webpage, called by lines in the __init__ class
     def open_wikipedia(self):
         wb.open(self.url, new=self.new)
 
     def open_api_source(self):
         wb.open(self.url2, new=self.new2)
 
+    #Actual getting of the info and displaying, along with some visual indicator processing.
     def get_countries(self):
         self.country_name = self.country_entry.get()
         lower_country = self.country_name.lower()
@@ -80,7 +87,7 @@ class API_Harvest(App):
                     self.new_recovered.configure(bg="#ffff00")
 
 
-
+#Running the program upon start.
 if __name__ == "__main__":
     window = tk.Tk()
     window.title("Covid Search Engine")
