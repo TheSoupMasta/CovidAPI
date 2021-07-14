@@ -10,6 +10,8 @@ class App:
         self.root = root
         self.url = "https://en.wikipedia.org/wiki/COVID-19"
         self.new = 1
+        self.url2 = "https://api.covid19api.com/summary"
+        self.new2 = 2
 
 r = response.json()
 
@@ -30,16 +32,19 @@ class API_Harvest(App):
         self.new_confirmed.grid(row=4)
         self.new_recovered = tk.Label(window, text='', font=("Comic Sans", 20), bg=("#ff0000"))
         self.new_recovered.grid(row=5)
-        self.button = tk.Button(window, text="COVID-19 Info", command=self.open_webpage)
+        self.button = tk.Button(window, text="COVID-19 Info", command=self.open_wikipedia)
         self.button.grid(row=6)
+        self.button1 = tk.Button(window, text="COVID-19 API Source", command=self.open_api_source)
+        self.button1.grid(row=7)
         self.legend = tk.Label(window, text="Red = Active infections are rising, Green = Active infections are dropping, Yellow =  Active infections are stable")
-        self.legend.grid(row=7)
+        self.legend.grid(row=8)
         self.get_countries()
 
-
-
-    def open_webpage(self):
+    def open_wikipedia(self):
         wb.open(self.url, new=self.new)
+
+    def open_api_source(self):
+        wb.open(self.url2, new=self.new2)
 
     def get_countries(self):
         self.country_name = self.country_entry.get()
