@@ -56,8 +56,9 @@ class API_Harvest(App):
     def get_countries(self):
         self.country_name = self.country_entry.get()
         lower_country = self.country_name.lower()
+        #Website showing caching in progress, this line checks for it.
         if r['Message'] == "Caching in progress":
-            quit("Error: Caching in progress")
+            quit("Error: " + r['Message'])
         else:
             for i in r["Countries"]:
                 if i["Country"].lower() == lower_country:
