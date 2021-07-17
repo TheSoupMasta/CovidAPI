@@ -57,9 +57,7 @@ class API_Harvest(App):
         self.country_name = self.country_entry.get()
         lower_country = self.country_name.lower()
         #Website showing caching in progress, this line checks for it.
-        if r['Message'] == "Caching in progress":
-            quit("Error: " + r['Message'] + '\n' + 'Please try again later.')
-        else:
+        try:
             for i in r["Countries"]:
                 if i["Country"].lower() == lower_country:
                     self.country.configure(text=self.country_name.upper())
@@ -89,6 +87,11 @@ class API_Harvest(App):
                         self.deaths.configure(bg="#ffff00")
                         self.new_confirmed.configure(bg="#ffff00")
                         self.new_recovered.configure(bg="#ffff00")
+        except:
+            if r['Message'] == "Caching in progress":
+                quit("Error: " + r['Message'] + '\n' + 'Please try again later.')
+            else:
+                quit("Error: Error in API or code.")
 
 
 #Running the program upon start.
