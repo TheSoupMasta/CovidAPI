@@ -20,7 +20,7 @@ class App:
 
 #Child class to display and process info in tkinter window.
 class API_Harvest(App):
-    # __init__ method, initalizing variables. Try not to change variables or risk bricking the script.
+    # __init__ method, initializing variables. Try not to change variables or risk bricking the script.
     def __init__(self, root):
         super(API_Harvest, self).__init__(root)
         self.country_entry = tk.Entry(window, width=10)
@@ -56,35 +56,38 @@ class API_Harvest(App):
     def get_countries(self):
         self.country_name = self.country_entry.get()
         lower_country = self.country_name.lower()
-        for i in r["Countries"]:
-            if i["Country"].lower() == lower_country:
-                self.country.configure(text=self.country_name.upper())
-                total_confirmed = i["TotalConfirmed"]
-                self.confirmed.configure(text="Total Confirmed COVID-19 Cases: " + str(total_confirmed))
-                total_dead = i["TotalDeaths"]
-                self.deaths.configure(text="Total COVID-19 Deaths: " + str(total_dead))
-                total_new_confirmed = i["NewConfirmed"]
-                self.new_confirmed.configure(text="Total New Confirmed COVID-19 Cases: " + str(total_new_confirmed))
-                total_new_recovered = i["NewRecovered"]
-                self.new_recovered.configure(text="Total New Recovered COVID-19 Cases: " + str(total_new_recovered))
-                if total_new_confirmed > total_new_recovered:
-                    self.country.configure(bg="#ff0000")
-                    self.confirmed.configure(bg="#ff0000")
-                    self.deaths.configure(bg="#ff0000")
-                    self.new_confirmed.configure(bg="#ff0000")
-                    self.new_recovered.configure(bg="#ff0000")
-                elif total_new_confirmed < total_new_recovered:
-                    self.country.configure(bg="#0eff0a")
-                    self.confirmed.configure(bg="#0eff0a")
-                    self.deaths.configure(bg="#0eff0a")
-                    self.new_confirmed.configure(bg="#0eff0a")
-                    self.new_recovered.configure(bg="#0eff0a")
-                elif total_new_confirmed == total_new_recovered:
-                    self.country.configure(bg="#ffff00")
-                    self.confirmed.configure(bg="#ffff00")
-                    self.deaths.configure(bg="#ffff00")
-                    self.new_confirmed.configure(bg="#ffff00")
-                    self.new_recovered.configure(bg="#ffff00")
+        if r['Message'] == "Caching in progress":
+            quit("Error: Caching in progress")
+        else:
+            for i in r["Countries"]:
+                if i["Country"].lower() == lower_country:
+                    self.country.configure(text=self.country_name.upper())
+                    total_confirmed = i["TotalConfirmed"]
+                    self.confirmed.configure(text="Total Confirmed COVID-19 Cases: " + str(total_confirmed))
+                    total_dead = i["TotalDeaths"]
+                    self.deaths.configure(text="Total COVID-19 Deaths: " + str(total_dead))
+                    total_new_confirmed = i["NewConfirmed"]
+                    self.new_confirmed.configure(text="Total New Confirmed COVID-19 Cases: " + str(total_new_confirmed))
+                    total_new_recovered = i["NewRecovered"]
+                    self.new_recovered.configure(text="Total New Recovered COVID-19 Cases: " + str(total_new_recovered))
+                    if total_new_confirmed > total_new_recovered:
+                        self.country.configure(bg="#ff0000")
+                        self.confirmed.configure(bg="#ff0000")
+                        self.deaths.configure(bg="#ff0000")
+                        self.new_confirmed.configure(bg="#ff0000")
+                        self.new_recovered.configure(bg="#ff0000")
+                    elif total_new_confirmed < total_new_recovered:
+                        self.country.configure(bg="#0eff0a")
+                        self.confirmed.configure(bg="#0eff0a")
+                        self.deaths.configure(bg="#0eff0a")
+                        self.new_confirmed.configure(bg="#0eff0a")
+                        self.new_recovered.configure(bg="#0eff0a")
+                    elif total_new_confirmed == total_new_recovered:
+                        self.country.configure(bg="#ffff00")
+                        self.confirmed.configure(bg="#ffff00")
+                        self.deaths.configure(bg="#ffff00")
+                        self.new_confirmed.configure(bg="#ffff00")
+                        self.new_recovered.configure(bg="#ffff00")
 
 
 #Running the program upon start.
