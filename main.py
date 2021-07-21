@@ -26,7 +26,7 @@ class API_Harvest(App):
         self.country_entry = tk.Entry(window, width=10)
         self.country_entry.grid(row=0, column=0)
         self.search_button = tk.Button(window, text="Search", command=self.get_countries)
-        self.search_button.grid(row=0, column=1)
+        self.search_button.grid(row=0, column=2)
         self.country = tk.Label(window, text='', font=("Comic Sans", 30), fg=("#c91010"))
         self.country.grid(row=1)
         self.confirmed = tk.Label(window, text='', font=("Comic Sans", 20), fg=("#ff0000"))
@@ -41,8 +41,10 @@ class API_Harvest(App):
         self.button.grid(row=6)
         self.button1 = tk.Button(window, text="COVID-19 API Source", command=self.open_api_source)
         self.button1.grid(row=7)
+        self.button2 = tk.Button(window, text="Country Info", command=self.open_country_info)
+        self.button2.grid(row=0, column=1)
         self.legend = tk.Label(window, text="Red = Active infections are rising, Green = Active infections are dropping, Yellow =  Active infections are stable")
-        self.legend.grid(row=8)
+        self.legend.grid(row=9)
         self.get_countries()
 
     #Methods for opening webpage, called by lines in the __init__ class
@@ -92,6 +94,9 @@ class API_Harvest(App):
                 quit("Error: Could not reach API, API error: " + r['Message'] + '\n' + 'Please try again later.')
             else:
                 quit("Error: Error in API or code.")
+
+    def open_country_info(self):
+        wb.open_new_tab("https://en.wikipedia.org/wiki/" + self.country_entry.get())
 
 
 #Running the program upon start.
